@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  app:
+    build: ./src
+    container_name: "auth-service"
+    tty: true
+    volumes:
+      - ./src:/go/src/app
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: mongo:3.2.21-jessie
+    ports:
+      - "27100:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root123456
