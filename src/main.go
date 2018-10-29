@@ -1,11 +1,11 @@
 package main
 
 import (
-	"crypto/tls"
+	// "crypto/tls"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"gopkg.in/mgo.v2"
-	"net"
+	// "gopkg.in/mgo.v2"
+	// "net"
 	"net/http"
 	"strconv"
 )
@@ -62,21 +62,21 @@ func deleteUser(c echo.Context) error {
 
 func main() {
 
-	tlsConfig := &tls.Config{}
+	// tlsConfig := &tls.Config{}
 
-	dialInfo := &mgo.DialInfo{
-		Addrs: []string{"prefix1.mongodb.net:27017",
-			"prefix2.mongodb.net:27017",
-			"prefix3.mongodb.net:27017"},
-		Database: "authDatabaseName",
-		Username: "user",
-		Password: "pass",
-	}
-	dialInfo.DialServer = func(addr *mgo.ServerAddr) (net.Conn, error) {
-		conn, err := tls.Dial("tcp", addr.String(), tlsConfig)
-		return conn, err
-	}
-	session, err := mgo.DialWithInfo(dialInfo)
+	// dialInfo := &mgo.DialInfo{
+	// 	Addrs: []string{"prefix1.mongodb.net:27017",
+	// 		"prefix2.mongodb.net:27017",
+	// 		"prefix3.mongodb.net:27017"},
+	// 	Database: "authDatabaseName",
+	// 	Username: "user",
+	// 	Password: "pass",
+	// }
+	// dialInfo.DialServer = func(addr *mgo.ServerAddr) (net.Conn, error) {
+	// 	conn, err := tls.Dial("tcp", addr.String(), tlsConfig)
+	// 	return conn, err
+	// }
+	// session, err := mgo.DialWithInfo(dialInfo)
 
 	e := echo.New()
 	e.Use(middleware.CORS())
