@@ -62,33 +62,35 @@ func deleteUser(c echo.Context) error {
 
 func main() {
 
-	// tlsConfig := &tls.Config{}
-
-	// dialInfo := &mgo.DialInfo{
-	// 	Addrs: []string{"prefix1.mongodb.net:27017",
-	// 		"prefix2.mongodb.net:27017",
-	// 		"prefix3.mongodb.net:27017"},
-	// 	Database: "authDatabaseName",
-	// 	Username: "user",
-	// 	Password: "pass",
-	// }
-	// dialInfo.DialServer = func(addr *mgo.ServerAddr) (net.Conn, error) {
-	// 	conn, err := tls.Dial("tcp", addr.String(), tlsConfig)
-	// 	return conn, err
-	// }
-	// session, err := mgo.DialWithInfo(dialInfo)
-
 	e := echo.New()
-	e.Use(middleware.CORS())
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
 
-	// Routes
-	e.POST("/users", createUser)
-	e.GET("/users/:id", read)
-	e.PUT("/users/:id", update)
-	e.DELETE("/users/:id", deleteUser)
+	e.Use(
+		middleware.Recover(),
+		middleware.Secure(),
+		middleware.Logger(),
+		middleware.Gzip(),
+		middleware.BodyLimit("2M"),
+		middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins: []string{
+				"http://localhost:8080",
+			},
+			AllowHeaders: []string{
+				echo.HeaderOrigin,
+				echo.HeaderContentLength,
+				echo.HeaderAcceptEncoding,
+				echo.HeaderContentType,
+				echo.HeaderAuthorization,
+			},
+			AllowMethods: []string{
+				echo.GET,
+				echo.POST,
+			},
+			MaxAge: 3600,
+		}),
+	)
+
+	// Register services
+	service.Auth(e.Group("/auth"))
 
 	// Start server
 	e.Logger.Fatal(e.Start(":9000"))

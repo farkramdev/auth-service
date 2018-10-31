@@ -1,4 +1,7 @@
 {
+	"go.autocompleteUnimportedPackages": true,
+	"go.formatTool": "gofmt",
 	"go.inferGopath": true,
-	"go.autocompleteUnimportedPackages": true
+	"go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
+	"go.useCodeSnippetsOnFunctionSuggest": true
 }
