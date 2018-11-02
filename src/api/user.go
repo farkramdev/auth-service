@@ -1,55 +1,45 @@
 package api
 
 import (
-	"github.com/farkramdev/auth-service/models"
-
-	"cloud.google.com/go/datastore"
-	"google.golang.org/api/iterator"
+	"github.com/farkramdev/auth-service/src/model"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
-const kindUser = "User"
+type UserRepository struct {
+	C *mgo.Collection
+}
 
-// FindUser from datastore
-func FindUser(username, password string) (*model.User, error) {
-	ctx, cancel := getContext()
-	defer cancel()
-
-	var user model.User
-	q := datastore.
-		NewQuery(kindUser).
-		Filter("Username =", username).
-		Limit(1)
-	key, err := client.Run(ctx, q).Next(&user)
-	if err == iterator.Done {
-		// Not found
-		return nil, nil
-	}
-	if err != nil {
-		return nil, err
-	}
-	user.SetKey(key)
-	if !user.ComparePassword(password) {
-		// wrong password return like user not found
-		return nil, nil
-	}
-	return &user, nil
+// FindUser from store
+func (r *UserRepository) FindUser(username, password string) (*model.User, error) {
+	// var user model.User
+	err = r.C.Find({username: username, password: password})
+	// q := datastore.
+	// 	NewQuery(kindUser).
+	// 	Filter("Username =", username).
+	// 	Limit(1)
+	// key, err := client.Run(ctx, q).Next(&user)
+	// if err == iterator.Done {
+	// 	// Not found
+	// 	return nil, nil
+	// }
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// user.SetKey(key)
+	// if !user.ComparePassword(password) {
+	// 	// wrong password return like user not found
+	// 	return nil, nil
+	// }
+	// return &user, nil
 }
 
 // SaveUser to datastore
-func SaveUser(user *model.User) error {
-	ctx, cancel := getContext()
-	defer cancel()
+func (r *UserRepository) SaveUser(user *model.User) error {
 
-	var err error
+	user.ID = bson.NewObjectId()
 	user.Stamp()
-	key := user.Key()
-	if key == nil {
-		key = datastore.IncompleteKey(kindUser, nil)
-	}
-	key, err = client.Put(ctx, key, user)
-	if err != nil {
-		return err
-	}
-	user.SetKey(key)
-	return nil
+	// user.SetKey(key)
+	err := r.C.Insert(&user)
+	return err
 }
