@@ -5,7 +5,7 @@ services:
     build: ./users
     container_name: "auth-service"
     volumes:
-      - ./users:/go/src/app
+      - .:/go/src/auth-service
     tty: true
     ports:
       - "9000:9000"
