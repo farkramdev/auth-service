@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/farkramdev/auth-service/src/api"
+	"auth-service/users/api"
 	"github.com/labstack/echo"
 	"net/http"
 )

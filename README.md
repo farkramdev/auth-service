@@ -1,3 +1,0 @@
-# auth-service
-
-555

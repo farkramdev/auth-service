@@ -1,10 +1,9 @@
 package main
 
 import (
-	"net/http"
-	// "github.com/farkramdev/auth-service/src/service"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"net/http"
 )
 
 func main() {
@@ -19,7 +18,7 @@ func main() {
 		middleware.BodyLimit("2M"),
 		middleware.CORSWithConfig(middleware.CORSConfig{
 			AllowOrigins: []string{
-				"http://localhost:8080",
+				"http://localhost:9000",
 			},
 			AllowHeaders: []string{
 				echo.HeaderOrigin,

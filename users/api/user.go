@@ -1,11 +1,12 @@
 package api
 
 import (
-	"github.com/farkramdev/auth-service/src/model"
+	"auth-service/users/model"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
+// UserRepository dddd UserRepository
 type UserRepository struct {
 	C *mgo.Collection
 }
@@ -13,7 +14,7 @@ type UserRepository struct {
 // FindUser from store
 func (r *UserRepository) FindUser(username, password string) (*model.User, error) {
 	// var user model.User
-	err = r.C.Find({username: username, password: password})
+	// err = r.C.Find({username: username, password: password})
 	// q := datastore.
 	// 	NewQuery(kindUser).
 	// 	Filter("Username =", username).
@@ -32,6 +33,7 @@ func (r *UserRepository) FindUser(username, password string) (*model.User, error
 	// 	return nil, nil
 	// }
 	// return &user, nil
+	return nil, nil
 }
 
 // SaveUser to datastore

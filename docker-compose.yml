@@ -2,15 +2,11 @@ version: "3.4"
 services:
 
   app:
-    build: ./src
+    build: ./users
     container_name: "auth-service"
     tty: true
-    volumes:
-      - ./src:/go/src/app
     ports:
       - "9000:9000"
-    networks:
-      - auth-network
     depends_on:
       - db
     links:
@@ -18,25 +14,8 @@ services:
 
   db:
     image: mongo:3.2.21-jessie
-    volumes:
-      - type: volume
-        source: db-data
-        target: /data/db
-    command: mongo --host db:27017 --eval "db.getSiblingDB('dashboard').createUser({user:'db', pwd:'dbpass', roles:[{role:'readWrite',db:'dashboard'}]});"
+    container_name: auth-db
     ports:
-      - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: toor123456
-      MONGODB_USERNAME: test
-      MONGODB_PASSWORD: test123
-      MONGODB_DATABASE: test1
-    networks:
-      - auth-network
-
-networks:
-  auth-network:
-
-volumes:
-  db-data:
-
+      - "27017:27017"
+    volumes:
+      - ./db:/db:rw
