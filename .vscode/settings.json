@@ -3,10 +3,9 @@
 	"go.formatTool": "gofmt",
 	"go.gotoSymbol.includeImports": true,
 	"go.inferGopath": true,
-	"go.installDependenciesWhenBuilding": false
-	// "go.autocompleteUnimportedPackages": true,
-	// "go.formatTool": "gofmt",
-	// "go.inferGopath": true,
-	// "go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
-	// "go.useCodeSnippetsOnFunctionSuggest": true
+	"go.installDependenciesWhenBuilding": false,
+	"go.lintTool": "gometalinter",
+	"go.lintFlags": [
+		"--config=${workspaceRoot}/.gometalinter"
+	]
 }

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"auth-service/users/api"
+	// "auth-service/users/api"
 	"github.com/labstack/echo"
 	"net/http"
 )
@@ -45,7 +45,7 @@ func authTokenHandler(c echo.Context) error {
 
 		// handle password grant type => return refresh token
 
-		user, err := api.FindUser(body.Username, body.Password)
+		// user, err := api.FindUser(body.Username, body.Password)
 
 		// if err != nil {
 		// 	log.Println(err)

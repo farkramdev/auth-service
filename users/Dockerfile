@@ -1,13 +1,18 @@
 FROM golang:alpine
-WORKDIR /go/src/app
+
+WORKDIR /go/src/auth-service
+
 COPY . .
+
 RUN apk update && apk add git
 
-# RUN go get -d -v ./...
+# RUN echo $GOPATH
+
+RUN go get -d -v ./...
 
 #get dependancies
-RUN go get -d -v
+# RUN go get -d -v
 
-CMD ["go","run","main.go"]
+# CMD ["go","run","main.go"]
 
 EXPOSE 9000

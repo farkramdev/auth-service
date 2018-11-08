@@ -1,0 +1,7 @@
+{
+  "Server": "db:27017",
+  "MongoDBHost": "db",
+  "MongoDBUser": "",
+  "MongoDBPwd": "",
+  "Database": "users"
+}

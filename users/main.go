@@ -1,6 +1,7 @@
 package main
 
 import (
+	"auth-service/users/common"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"net/http"
@@ -8,8 +9,10 @@ import (
 
 func main() {
 
-	e := echo.New()
+	// Calls startup logic
+	common.StartUp()
 
+	e := echo.New()
 	e.Use(
 		middleware.Recover(),
 		middleware.Secure(),

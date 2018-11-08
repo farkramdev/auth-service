@@ -13,13 +13,19 @@ type UserRepository struct {
 
 // FindUser from store
 func (r *UserRepository) FindUser(username, password string) (*model.User, error) {
-	// var user model.User
-	// err = r.C.Find({username: username, password: password})
+	var user model.User
+
+	// result := model.User{}
+
+	// err := r.c.FindUser((bson.M{"name": "Ale"}).Select(bson.M{"phone": 0}).One(&result)
+
+	// err = r.C.Find(bson.M{"username": "eee"})
 	// q := datastore.
 	// 	NewQuery(kindUser).
 	// 	Filter("Username =", username).
 	// 	Limit(1)
 	// key, err := client.Run(ctx, q).Next(&user)
+
 	// if err == iterator.Done {
 	// 	// Not found
 	// 	return nil, nil
@@ -28,12 +34,12 @@ func (r *UserRepository) FindUser(username, password string) (*model.User, error
 	// 	return nil, err
 	// }
 	// user.SetKey(key)
-	// if !user.ComparePassword(password) {
-	// 	// wrong password return like user not found
-	// 	return nil, nil
-	// }
-	// return &user, nil
-	return nil, nil
+	if !user.ComparePassword(password) {
+
+		// wrong password return like user not found
+		return nil, nil
+	}
+	return &user, nil
 }
 
 // SaveUser to datastore
