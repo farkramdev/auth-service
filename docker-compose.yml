@@ -19,5 +19,5 @@ services:
     container_name: auth-db
     ports:
       - "27017:27017"
-    volumes:
-      - ./db:/db:rw
+    # volumes:
+    #   - ./db:/data/db:rw

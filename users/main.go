@@ -2,6 +2,7 @@ package main
 
 import (
 	"auth-service/users/common"
+	"auth-service/users/service"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"net/http"
@@ -9,7 +10,7 @@ import (
 
 func main() {
 
-	// Calls startup logic
+	// Calls startup db and logic
 	common.StartUp()
 
 	e := echo.New()
@@ -39,11 +40,11 @@ func main() {
 	)
 
 	e.GET("/_ah/health", func(c echo.Context) error {
-		return c.String(http.StatusOK, "OK")
+		return c.String(http.StatusOK, "OK 55")
 	})
 
 	// Register services
-	// service.Auth(e.Group("/auth"))
+	service.Auth(e.Group("/auth"))
 
 	// Start server
 	e.Logger.Fatal(e.Start(":9000"))
